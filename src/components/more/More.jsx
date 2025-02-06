@@ -23,13 +23,18 @@ const More = () => {
   }
 
   if (!kitData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <div className="loading-text">Fetching Data From Server...</div>
+      </div>
+    );
   }
 
   return (
     <div className="kit-details">
       <h2>Kit Data for Serial Number: {kitData.serialNumber}</h2>
-
+      <div className="table-container">
       <table className="kit-table">
         <thead>
           <tr>
@@ -72,6 +77,7 @@ const More = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

@@ -2,20 +2,22 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Loading state
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent form default submission
+    e.preventDefault();
+    setLoading(true); // Start loading
 
     try {
       const response = await axios.post('https://avem-production.up.railway.app/auth/login', {
-        username: 'admin', // Hardcoded username
+        username: 'admin',
         password: password,
       });
 
@@ -31,6 +33,8 @@ const Login = () => {
       } else {
         setErrorMessage('An error occurred, please try again');
       }
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -55,7 +59,10 @@ const Login = () => {
             </span>
           </div>
 
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+          {loading && <div className="loading-spinner"></div>} {/* Loading Indicator */}
           {errorMessage && <div className="error">{errorMessage}</div>}
         </form>
       </div>

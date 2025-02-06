@@ -42,17 +42,15 @@ const BoxList = () => {
         } else {
           setBoxDetails(defaultData); // Use default data if no data is returned
         }
-        setLoading(false);
       } catch (error) {
         setBoxDetails(defaultData); // Use default data in case of an error
-        setLoading(false);
         setError('Failed to load box details');
       }
+      setLoading(false);
     };
 
     fetchBoxDetails();
 
-    
     const interval = setInterval(() => {
       const time = new Date().toLocaleTimeString();
       setCurrentTime(time);
@@ -64,7 +62,7 @@ const BoxList = () => {
 
   useEffect(() => {
     // Calculate the active count whenever box details are updated
-    const countActive = boxDetails.filter((box) => box.status === 'active').length;
+    const countActive = boxDetails.filter((box) => box.status.toLowerCase() === 'active').length;
     setActiveCount(countActive);
   }, [boxDetails]);
 
@@ -73,15 +71,14 @@ const BoxList = () => {
     navigate(`/more/${serial}`);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  return (
+  return loading ? (
+    <div className="loading-screen">
+      <div className="spinner"></div>
+      <div className="loading-text">Fetching Data From Server...</div>
+    </div>
+  ) : error ? (
+    <div>{error}</div>
+  ) :  (
     <div className="box-list-container">
       <li className="box">
         <ul>
@@ -110,7 +107,7 @@ const BoxList = () => {
               <td>{box.status}</td>
               <td>
                 <button className="more-btn" onClick={() => handleMoreClick(box.serialNumber)}>
-                <span className='eye'><FaEye/></span>
+                  <span className='eye'><FaEye/></span>
                 </button>
               </td>
             </tr>

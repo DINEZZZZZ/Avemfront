@@ -1,94 +1,198 @@
-/* Main container */
+/* More.css */
+
 .kit-details {
-    padding: 10px;
+    padding: 1rem;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    margin: 10px auto;
+    margin: 1rem auto;
     font-family: Arial, sans-serif;
-    text-align: center; /* Center align the text */
-}
-
-/* Centering the title */
-.kit-details h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 15px;
+    overflow-x: hidden;
+    
+  }
+  
+  /* Title styling */
+  .kit-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: #333;
-}
-
-/* Table styling */
-.kit-table {
+    text-align: center;
+  }
+  
+  /* Table container for responsiveness */
+  .table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Table styling */
+  .kit-table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
-    margin-top: 20px;
     background-color: #fff;
-}
-
-/* Table header styling */
-.kit-table th {
+  }
+  
+  .kit-table th,
+  .kit-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .kit-table th {
     background-color: #007bff;
     color: white;
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-size: 16px;
-}
-
-/* Table body styling with alternate row colors */
-.kit-table tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Light gray */
-}
-
-.kit-table tr:nth-child(even) {
-    background-color: #ffffff; /* White */
-}
-
-/* Table cell styling */
-.kit-table td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-size: 14px;
-}
-
-/* Play button styling */
-.play-btn {
+    font-weight: bold;
+  }
+  
+  .kit-table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Camera footage section */
+  .camera-footage {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Play button styling */
+  .play-btn {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 14px;
-    transition: background 0.3s ease-in-out;
-}
-
-.play-btn:hover {
+    transition: background 0.3s ease;
+    min-width: 80px;
+  }
+  
+  .play-btn:hover {
     background-color: #218838;
-}
-
-/* Disabled button styling */
-.play-btn:disabled {
-    background-color: #ccc;
+  }
+  
+  .play-btn:disabled {
+    background-color: #6c757d;
     cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Video container */
-.camera-footage {
+  }
+  
+  /* Medium screens (tablets, 768px and below) */
+  @media (max-width: 768px) {
+    .kit-details {
+      padding: 0.75rem;
+     
+    }
+  
+    .kit-details h2 {
+      font-size: 1.3rem;
+    }
+  
+    .kit-table th,
+    .kit-table td {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
+  
+    .play-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Small screens (mobile, 576px and below) */
+  @media (max-width: 576px) {
+    .kit-details {
+      padding: 0.5rem;
+    }
+  
+    .kit-details h2 {
+      font-size: 1.2rem;
+    }
+  
+    .kit-table {
+      min-width: 100%;
+      display: block;
+      overflow-x: auto;
+    }
+  
+    .kit-table th,
+    .kit-table td {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+  
+    .play-btn {
+      width: 90px;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  /* Extra small screens (400px and below) */
+  @media (max-width: 400px) {
+    .kit-details h2 {
+      font-size: 1rem;
+    }
+  
+    .kit-table th,
+    .kit-table td {
+      font-size: 0.75rem;
+      padding: 0.4rem;
+    }
+  
+    .play-btn {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+  
+    .camera-footage {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+  
+  /* Centered Loading Screen */
+.loading-screen {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.video-container {
-    display: inline-block;
-}
-.play-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    opacity: 0.6;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
   }
+  
+  /* Rotating Spinner */
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 123, 255, 0.3);
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Fading Loading Text */
+  .loading-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    animation: fadeIn 1.5s infinite alternate;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
+  

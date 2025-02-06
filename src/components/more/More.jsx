@@ -8,7 +8,7 @@ const More = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/kits/${serial}`)
+    fetch(`https://avem-production.up.railway.app/kits/${serial}`)
       .then((response) => response.json())
       .then((data) => {
         setKitData(data);

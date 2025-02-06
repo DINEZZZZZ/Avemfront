@@ -31,7 +31,7 @@ const BoxList = () => {
     // Fetch data from the backend
     const fetchBoxDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/kits/'); // Replace with your backend endpoint
+        const response = await axios.get('https://avem-production.up.railway.app/kits/'); // Replace with your backend endpoint
         if (response.data && response.data.length > 0) {
           // Extract only serialNumber and status from backend response
           const fetchedData = response.data.map((box) => ({

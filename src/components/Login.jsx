@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await axios.post('https://avem-production.up.railway.app/auth/login', {
+      const response = await axios.post('https://avemfinalbackend.onrender.com/auth/login', {
         username: 'admin',
         password: password,
       });

@@ -8,7 +8,7 @@ const More = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://avem-production.up.railway.app/kits/${serial}`)
+    fetch(`https://avemfinalbackend.onrender.com/kits/AO001K3JD`)
       .then((response) => response.json())
       .then((data) => {
         setKitData(data);

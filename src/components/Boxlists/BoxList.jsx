@@ -13,37 +13,29 @@ const BoxList = () => {
   const navigate = useNavigate();
 
   const defaultData = [
-    {
-      serialNumber: 'SN001',
-      status: 'Active',
-    },
-    {
-      serialNumber: 'SN002',
-      status: 'Inactive',
-    },
-    {
-      serialNumber: 'SN003',
-      status: 'Active',
-    },
+    { serialNumber: 'SN001', status: 'Active' },
+    { serialNumber: 'SN002', status: 'Inactive' },
+    { serialNumber: 'SN003', status: 'Active' },
   ];
 
   useEffect(() => {
-    // Fetch data from the backend
     const fetchBoxDetails = async () => {
       try {
-        const response = await axios.get('https://avem-production.up.railway.app/kits/'); // Replace with your backend endpoint
-        if (response.data && response.data.length > 0) {
-          // Extract only serialNumber and status from backend response
-          const fetchedData = response.data.map((box) => ({
-            serialNumber: box.serialNumber,
-            status: box.status,
-          }));
-          setBoxDetails(fetchedData);
+        const response = await axios.get('https://avemfinalbackend.onrender.com/kits/AO001K3JD');
+        const data = response.data;
+
+        // Your JSON has a single object, so wrap it in an array for consistent mapping
+        if (data) {
+          const fetched = [{
+            serialNumber: data.serialNumber,
+            status: data.status,
+          }];
+          setBoxDetails(fetched);
         } else {
-          setBoxDetails(defaultData); // Use default data if no data is returned
+          setBoxDetails(defaultData);
         }
-      } catch (error) {
-        setBoxDetails(defaultData); // Use default data in case of an error
+      } catch (err) {
+        setBoxDetails(defaultData);
         setError('Failed to load box details');
       }
       setLoading(false);
@@ -52,22 +44,18 @@ const BoxList = () => {
     fetchBoxDetails();
 
     const interval = setInterval(() => {
-      const time = new Date().toLocaleTimeString();
-      setCurrentTime(time);
+      setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
 
-    // Cleanup interval when component unmounts
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    // Calculate the active count whenever box details are updated
-    const countActive = boxDetails.filter((box) => box.status.toLowerCase() === 'active').length;
-    setActiveCount(countActive);
+    const count = boxDetails.filter((box) => box.status.toLowerCase() === 'active').length;
+    setActiveCount(count);
   }, [boxDetails]);
 
   const handleMoreClick = (serial) => {
-    // Navigate to the 'More' page with the serial number
     navigate(`/more/${serial}`);
   };
 
@@ -78,18 +66,12 @@ const BoxList = () => {
     </div>
   ) : error ? (
     <div>{error}</div>
-  ) :  (
+  ) : (
     <div className="box-list-container">
       <li className="box">
-        <ul>
-          <h2 className="box-list-title">Active: {activeCount}</h2>
-        </ul>
-        <ul>
-          <h2 className="box-list-title">Live Report</h2>
-        </ul>
-        <ul>
-          <h2 className="box-list-title">Time: {currentTime}</h2>
-        </ul>
+        <ul><h2 className="box-list-title">Active: {activeCount}</h2></ul>
+        <ul><h2 className="box-list-title">Live Report</h2></ul>
+        <ul><h2 className="box-list-title">Time: {currentTime}</h2></ul>
       </li>
 
       <table className="serial-table">
@@ -107,7 +89,7 @@ const BoxList = () => {
               <td>{box.status}</td>
               <td>
                 <button className="more-btn" onClick={() => handleMoreClick(box.serialNumber)}>
-                  <span className='eye'><FaEye/></span>
+                  <span className="eye"><FaEye /></span>
                 </button>
               </td>
             </tr>
